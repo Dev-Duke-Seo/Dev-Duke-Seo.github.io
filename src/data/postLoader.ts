@@ -14,6 +14,7 @@ export async function loadPosts(): Promise<Post[]> {
     // GitHub에서 포스트 가져오기
     loadedPosts = await loadGitHubPosts();
     isLoaded = true;
+
     return loadedPosts;
   } catch (error) {
     console.error('포스트 로드 중 오류 발생:', error);
