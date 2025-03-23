@@ -1,0 +1,48 @@
+.blog-page {
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.blog-header {
+	margin-bottom: 2rem;
+}
+
+.blog-header h1 {
+	font-size: 2rem;
+	margin-bottom: 1.5rem;
+	color: #333;
+}
+
+.blog-search {
+	display: flex;
+	margin-bottom: 1rem;
+}
+
+.blog-search input {
+	flex: 1;
+	padding: 0.5rem;
+	border: 1px solid #ddd;
+	border-radius: 4px 0 0 4px;
+	font-size: 0.9rem;
+}
+
+.blog-search button {
+	background-color: #1a73e8;
+	color: white;
+	border: none;
+	padding: 0 1rem;
+	border-radius: 0 4px 4px 0;
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+.blog-search button:hover {
+	background-color: #0d61cb;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+	.blog-header h1 {
+		font-size: 1.7rem;
+	}
+}

@@ -1,0 +1,98 @@
+.blog-layout {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+.blog-header {
+	background-color: #fff;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	padding: 1rem 2rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.blog-brand h1 {
+	font-size: 1.5rem;
+	font-weight: 700;
+	margin: 0;
+}
+
+.blog-brand a {
+	color: #333;
+	text-decoration: none;
+}
+
+.blog-nav ul {
+	display: flex;
+	gap: 1.5rem;
+}
+
+.blog-nav a {
+	color: #555;
+	font-weight: 500;
+	transition: color 0.2s;
+}
+
+.blog-nav a:hover {
+	color: #1a73e8;
+	text-decoration: none;
+}
+
+.blog-container {
+	display: flex;
+	flex: 1;
+	max-width: 1200px;
+	margin: 0 auto;
+	width: 100%;
+}
+
+.blog-sidebar {
+	width: 250px;
+	padding: 2rem 1rem;
+	background-color: #fff;
+	border-right: 1px solid #eee;
+}
+
+.blog-content {
+	flex: 1;
+	padding: 2rem;
+	background-color: #fff;
+}
+
+.blog-footer {
+	background-color: #f5f5f5;
+	padding: 1.5rem;
+	text-align: center;
+	border-top: 1px solid #eee;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+	.blog-header {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1rem;
+		padding: 1rem;
+	}
+
+	.blog-nav ul {
+		gap: 1rem;
+	}
+
+	.blog-container {
+		flex-direction: column;
+	}
+
+	.blog-sidebar {
+		width: 100%;
+		border-right: none;
+		border-bottom: 1px solid #eee;
+		padding: 1rem;
+	}
+
+	.blog-content {
+		padding: 1rem;
+	}
+}

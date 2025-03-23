@@ -1,70 +1,56 @@
-# Getting Started with Create React App
+# 개발자의 기록 - React 블로그
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+이 프로젝트는 React를 사용하여 구현한 마크다운 기반 블로그입니다.
 
-## Available Scripts
+## 주요 기능
 
-In the project directory, you can run:
+- 마크다운으로 작성된 문서 렌더링
+- 폴더 구조 기반 카테고리/네비게이션 자동 생성
+- 생성일 기준 최신 글 정렬
+- 태그 기반 검색 기능
+- 모바일 반응형 디자인
 
-### `npm start`
+## 기술 스택
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- React
+- React Router
+- gray-matter (마크다운 메타데이터 파싱)
+- remark (마크다운 HTML 변환)
+- date-fns (날짜 처리)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 개발 환경 설정
 
-### `npm test`
+```bash
+# 의존성 설치
+npm install
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# 개발 서버 실행
+npm start
 
-### `npm run build`
+# 빌드
+npm run build
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# GitHub Pages 배포
+npm run deploy
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 블로그 포스트 작성법
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`content/blog/카테고리/파일명.md` 형식으로 마크다운 파일을 생성합니다.
 
-### `npm run eject`
+각 마크다운 파일은 다음 형식의 메타데이터가 필요합니다:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```md
+---
+title: "포스트 제목"
+description: "포스트 설명"
+createdAt: "YYYY-MM-DD"
+tags: ["태그1", "태그2"]
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# 본문 내용
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 라이센스
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+MIT
