@@ -41,7 +41,7 @@ const Navigation: React.FC<NavigationProps> = ({ contentTree }) => {
 
   return (
     <NavigationContainer>
-      <Title>문서 목록</Title>
+      <Title>글 목록</Title>
       <CategoryList>
         {Object.keys(contentTree).map(category => (
           <CategoryItem key={category}>

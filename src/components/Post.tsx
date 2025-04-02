@@ -20,7 +20,7 @@ import {
 
 const Post: React.FC<PostProps> = ({ post }) => {
   if (!post) {
-    return <PostNotFound>포스트를 찾을 수 없습니다.</PostNotFound>;
+    return <PostNotFound>작성된 포스트가 없습니다.</PostNotFound>;
   }
   
   return (
