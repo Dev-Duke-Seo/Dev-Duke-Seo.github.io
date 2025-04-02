@@ -1,0 +1,15 @@
+<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- 배경 원 -->
+  <circle cx="150" cy="150" r="120" fill="#f8f8f8" />
+  
+  <!-- 코드 괄호 형태의 디자인 요소 -->
+  <path d="M110 90 L80 150 L110 210" stroke="#2D3748" stroke-width="12" fill="none" stroke-linecap="round" />
+  <path d="M190 90 L220 150 L190 210" stroke="#2D3748" stroke-width="12" fill="none" stroke-linecap="round" />
+  
+  <!-- 중앙 점(코어) -->
+  <circle cx="150" cy="150" r="15" fill="#4299E1" />
+  
+  <!-- 연결선 -->
+  <line x1="110" y1="150" x2="135" y2="150" stroke="#4299E1" stroke-width="8" stroke-linecap="round" />
+  <line x1="165" y1="150" x2="190" y2="150" stroke="#4299E1" stroke-width="8" stroke-linecap="round" />
+</svg>
