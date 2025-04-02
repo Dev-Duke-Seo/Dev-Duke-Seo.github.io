@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { getContentTree, getPostWithHtml } from '../data/blog-data';
-import BlogLayout from '../layouts/BlogLayout';
 import Post from '../components/Post';
 import { Post as PostType } from '../types';
 
@@ -11,6 +10,7 @@ const PostPageContainer = styled.div`
   margin: 0 auto;
 `;
 
+
 type PostPageParams = {
   category: string;
   slug: string;
@@ -18,7 +18,7 @@ type PostPageParams = {
 
 const PostPage: React.FC = () => {
   const { category, slug } = useParams<PostPageParams>();
-  const contentTree = getContentTree();
+  // const contentTree = getContentTree();
   const [post, setPost] = useState<PostType | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   
@@ -39,7 +39,6 @@ const PostPage: React.FC = () => {
   }, [category, slug]);
   
   return (
-    <BlogLayout contentTree={contentTree}>
       <PostPageContainer>
         {loading ? (
           <div>로딩 중...</div>
@@ -47,7 +46,6 @@ const PostPage: React.FC = () => {
           <Post post={post} />
         )}
       </PostPageContainer>
-    </BlogLayout>
   );
 };
 

@@ -3,66 +3,52 @@ import { Link } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { PostListProps } from '../types';
-import {
-  PostListContainer,
-  ListTitle,
-  PostItems,
-  Item,
-  PostLink,
-  Card,
-  CardTitle,
-  CardDescription,
-  CardMeta,
-  CardDate,
-  CardTags,
-  CardTag,
-  EmptyMessage
-} from '../styles/components/PostListStyles';
+import * as S from '../styles/components/PostListStyles';
 
 const PostList: React.FC<PostListProps> = ({ posts, title = "최근 포스트" }) => {
   if (!posts || posts.length === 0) {
     return (
-      <EmptyMessage>
+      <S.EmptyMessage>
         <h2>{title}</h2>
         <p>포스트가 없습니다.</p>
-      </EmptyMessage>
+      </S.EmptyMessage>
     );
   }
 
   return (
-    <PostListContainer>
-      <ListTitle>{title}</ListTitle>
-      <PostItems>
+    <S.Container>
+      <S.Title>{title}</S.Title>
+      <S.List>
         {posts.map(post => (
-          <Item key={`${post.category}-${post.slug}`}>
+          <S.Item key={`${post.category}-${post.slug}`}>
             <Link to={post.path} style={{ textDecoration: 'none' }}>
-              <Card>
-                <CardTitle>{post.title}</CardTitle>
+              <S.Card>
+                <S.CardTitle>{post.title}</S.CardTitle>
                 {post.description && (
-                  <CardDescription>{post.description}</CardDescription>
+                  <S.CardDescription>{post.description}</S.CardDescription>
                 )}
                 
-                <CardMeta>
+                <S.CardMeta>
                   {post.createdAt && (
-                    <CardDate dateTime={post.createdAt}>
+                    <S.CardDate dateTime={post.createdAt}>
                       {format(parseISO(post.createdAt), 'yyyy년 MM월 dd일', { locale: ko })}
-                    </CardDate>
+                    </S.CardDate>
                   )}
                   
                   {post.tags && post.tags.length > 0 && (
-                    <CardTags>
+                    <S.CardTags>
                       {post.tags.map(tag => (
-                        <CardTag key={tag}>#{tag}</CardTag>
+                        <S.CardTag key={tag}>#{tag}</S.CardTag>
                       ))}
-                    </CardTags>
+                    </S.CardTags>
                   )}
-                </CardMeta>
-              </Card>
+                </S.CardMeta>
+              </S.Card>
             </Link>
-          </Item>
+          </S.Item>
         ))}
-      </PostItems>
-    </PostListContainer>
+      </S.List>
+    </S.Container>
   );
 };
 

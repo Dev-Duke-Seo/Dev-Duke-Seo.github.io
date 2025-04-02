@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-export const PostListContainer = styled.div`
+export const Container = styled.div`
   max-width: 800px;
   margin: 0 auto;
 `;
 
-export const ListTitle = styled.h2`
+export const Title = styled.h2`
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
   color: #333;
@@ -13,7 +13,7 @@ export const ListTitle = styled.h2`
   border-bottom: 1px solid #eee;
 `;
 
-export const PostItems = styled.ul`
+export const List = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -26,16 +26,6 @@ export const Item = styled.li`
 
   &:hover {
     transform: translateY(-3px);
-  }
-`;
-
-export const PostLink = styled.a`
-  display: block;
-  color: inherit;
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: none;
   }
 `;
 

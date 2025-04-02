@@ -19,8 +19,10 @@ export interface BlogLayoutProps {
   contentTree: ContentTree;
 }
 
-export interface NavigationProps {
+export interface SidebarProps {
   contentTree: ContentTree;
+  isOpen: boolean;
+  onToggle: () => void;
 }
 
 export interface PostProps {

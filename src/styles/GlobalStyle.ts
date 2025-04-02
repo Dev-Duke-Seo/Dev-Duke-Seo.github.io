@@ -1,28 +1,31 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-  *, *::before, *::after {
+  * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
   }
 
-  html, body {
-    margin: 0;
-    padding: 0;
+  html {
+    font-size: 62.5%; /* 10px = 1rem */
+  }
+
+  body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
       Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333;
-    background-color: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: ${({ theme }) => theme.colors.background};
+    color: ${({ theme }) => theme.colors.text};
+    line-height: 1.6;
   }
 
   a {
-    color: #4a6bff;
+    color: ${({ theme }) => theme.colors.primary};
     text-decoration: none;
-    transition: color 0.2s ease;
-
     &:hover {
-      color: #304bae;
+      text-decoration: underline;
     }
   }
 
@@ -31,8 +34,16 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.2;
   }
 
+  h1 { font-size: 3.2rem; } /* 32px */
+  h2 { font-size: 2.8rem; } /* 28px */
+  h3 { font-size: 2.4rem; } /* 24px */
+  h4 { font-size: 2rem; }   /* 20px */
+  h5 { font-size: 1.8rem; } /* 18px */
+  h6 { font-size: 1.6rem; } /* 16px */
+
   p {
     margin-top: 0;
+    font-size: 1.6rem; /* 16px */
   }
 
   img {
@@ -41,23 +52,18 @@ const GlobalStyle = createGlobalStyle`
   }
 
   code {
-    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-    font-size: 0.9em;
+    background-color: ${({ theme }) => theme.colors.secondary};
     padding: 0.2em 0.4em;
-    background-color: #f5f5f5;
     border-radius: 3px;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
   }
 
   pre {
-    background-color: #f5f5f5;
-    padding: 1rem;
-    border-radius: 4px;
+    background-color: ${({ theme }) => theme.colors.secondary};
+    padding: 1em;
+    border-radius: 5px;
     overflow-x: auto;
-    
-    code {
-      padding: 0;
-      background-color: transparent;
-    }
   }
 
   blockquote {
@@ -65,10 +71,12 @@ const GlobalStyle = createGlobalStyle`
     padding-left: 1rem;
     border-left: 3px solid #e9e9e9;
     color: #666;
+    font-size: 1.6rem; /* 16px */
   }
 
   ul, ol {
     padding-left: 1.5rem;
+    font-size: 1.6rem; /* 16px */
   }
 `;
 

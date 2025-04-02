@@ -10,7 +10,7 @@ export const GitHubConfig = {
   BRANCH: 'main', // 저장소 브랜치
   
   // 콘텐츠 경로
-  CONTENT_PATH: 'content/blog', // 포스트가 저장된 경로
+  CONTENT_PATH: 'content', // 포스트가 저장된 경로
   
   // 대체 경로 (기본 경로에 콘텐츠가 없을 경우 시도할 경로)
   ALTERNATIVE_PATHS: [
