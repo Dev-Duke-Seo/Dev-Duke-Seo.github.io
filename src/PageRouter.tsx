@@ -13,7 +13,7 @@ interface Route {
 const pageRoutes: Route[] = [
   { path: "/", element: <Home /> },
   { path: "/about", element: <About /> },
-  { path: "/blog/:category/:slug", element: <PostPage /> },
+  { path: "/blog/:category/*", element: <PostPage /> },
 ];
 
 
