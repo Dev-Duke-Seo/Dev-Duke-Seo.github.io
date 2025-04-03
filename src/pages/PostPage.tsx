@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { getPostWithHtml } from '../data/blog-data';
 import Post from '../components/Post';
@@ -10,15 +10,14 @@ const PostPageContainer = styled.div`
   margin: 0 auto;
 `;
 
-
 type PostPageParams = {
   category: string;
-  slug: string;
+  '*': string;
 };
 
 const PostPage: React.FC = () => {
-  const { category, slug } = useParams<PostPageParams>();
-  // const contentTree = getContentTree();
+  const { category, '*': pathMatch } = useParams<PostPageParams>();
+  const location = useLocation();
   const [post, setPost] = useState<PostType | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   
@@ -26,8 +25,19 @@ const PostPage: React.FC = () => {
     async function loadPost() {
       setLoading(true);
       try {
+        const pathParts = pathMatch ? pathMatch.split('/') : [];
+        let slug = '';
+        
+        if (pathParts.length > 0) {
+          slug = pathParts[pathParts.length - 1];
+        }
+        
         const postData = await getPostWithHtml(category || '', slug || '');
         setPost(postData);
+        
+        if (!postData) {
+          console.error('포스트를 찾을 수 없습니다:', location.pathname);
+        }
       } catch (error) {
         console.error('포스트를 불러오는데 실패했습니다:', error);
       } finally {
@@ -36,16 +46,16 @@ const PostPage: React.FC = () => {
     }
     
     loadPost();
-  }, [category, slug]);
+  }, [category, pathMatch, location.pathname]);
   
   return (
-      <PostPageContainer>
-        {loading ? (
-          <div>로딩 중...</div>
-        ) : (
-          <Post post={post} />
-        )}
-      </PostPageContainer>
+    <PostPageContainer>
+      {loading ? (
+        <div>로딩 중...</div>
+      ) : (
+        <Post post={post} />
+      )}
+    </PostPageContainer>
   );
 };
 

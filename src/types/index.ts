@@ -8,6 +8,7 @@ export interface Post {
   path: string;
   content: string;
   htmlContent?: string;
+  contentLoaded?: boolean;
 }
 
 export interface FileNode {

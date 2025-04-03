@@ -1,5 +1,6 @@
 import { Post, ContentTree } from "../types";
 import { getLoadedPosts } from "./postLoader";
+import { getMarkdownContent, parseMarkdown } from "../utils/githubLoader";
 
 // 카테고리별 트리 구조 생성
 export function getContentTree(): ContentTree {
@@ -25,12 +26,9 @@ export function getContentTree(): ContentTree {
 	return tree;
 }
 
-// 모든 포스트 반환 (날짜순 정렬)
+// 모든 포스트 반환
 export function getAllPosts(): Post[] {
-	const allPosts = getLoadedPosts();
-	return [...allPosts].sort((a, b) => {
-		return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-	});
+	return getLoadedPosts();
 }
 
 // 특정 포스트 반환
@@ -41,6 +39,42 @@ export function getPost(category: string, slug: string): Post | undefined {
 	);
 }
 
+// 특정 포스트의 내용을 로드
+export async function loadPostContent(post: Post): Promise<Post> {
+	// 이미 내용이 로드된 경우
+	if (post.contentLoaded) {
+		return post;
+	}
+
+	// GitHub에서 마크다운 내용 가져오기
+	const content = await getMarkdownContent(post.path.replace('/blog/', '') + '.md');
+	
+	if (!content) {
+		// 내용을 가져올 수 없는 경우
+		return {
+			...post,
+			content: "내용을 불러올 수 없습니다.",
+			contentLoaded: true,
+		};
+	}
+
+	// 마크다운 파싱
+	const { metadata, content: markdownContent } = parseMarkdown(content);
+
+	// 메타데이터로 포스트 정보 업데이트
+	return {
+		...post,
+		title: metadata.title || post.title,
+		description: metadata.description || post.description,
+		createdAt: metadata.date || post.createdAt,
+		tags: Array.isArray(metadata.tags) 
+			? metadata.tags 
+			: (metadata.tags ? metadata.tags.split(',').map((tag: string) => tag.trim()) : []),
+		content: markdownContent,
+		contentLoaded: true,
+	};
+}
+
 // HTML로 변환된 콘텐츠 반환
 export async function getPostWithHtml(
 	category: string,
@@ -49,9 +83,21 @@ export async function getPostWithHtml(
 	const post = getPost(category, slug);
 	if (!post) return null;
 
-	// 마크다운 -> HTML 변환 (프로덕션에서는 remark 사용)
-	// 여기서는 간단하게 줄바꿈만 처리
-	const htmlContent = post.content
+	// 내용이 로드되지 않은 경우 먼저 로드
+	let fullPost = post;
+	if (!post.contentLoaded) {
+		fullPost = await loadPostContent(post);
+		
+		// 로드된 포스트 정보 업데이트
+		const allPosts = getLoadedPosts();
+		const index = allPosts.findIndex(p => p.category === category && p.slug === slug);
+		if (index !== -1) {
+			allPosts[index] = fullPost;
+		}
+	}
+
+	// 마크다운 -> HTML 변환
+	const htmlContent = fullPost.content
 		.replace(/\n\n/g, "</p><p>")
 		.replace(/\n/g, "<br />")
 		.replace(
@@ -65,7 +111,7 @@ export async function getPostWithHtml(
 		.replace(/`([^`]+)`/g, "<code>$1</code>");
 
 	return {
-		...post,
+		...fullPost,
 		htmlContent: `<p>${htmlContent}</p>`,
 	};
 }
