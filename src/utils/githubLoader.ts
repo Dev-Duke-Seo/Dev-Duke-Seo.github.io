@@ -1,5 +1,6 @@
 import { Post, FileNode, ContentTree } from '../types';
 import { GitHubConfig } from '../config/github';
+import { getFromCache, saveToCache } from '../services/CacheService';
 
 // GitHub API URL
 const { 
@@ -29,6 +30,15 @@ function debugLog(...args: any[]): void {
  * @returns 파일 목록
  */
 export async function getFilesFromGitHub(path = ''): Promise<any[]> {
+  const cacheKey = `github_files_${REPO_OWNER}_${REPO_NAME}_${path}`;
+  
+  // 캐시에서 먼저 확인
+  const cachedData = await getFromCache<any[]>(cacheKey);
+  if (cachedData) {
+    debugLog(`캐시에서 파일 목록 로드: ${path}`);
+    return cachedData;
+  }
+  
   const url = `${API_BASE}/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}?ref=${BRANCH}`;
   debugLog(`API 요청: ${url}`);
   
@@ -58,8 +68,13 @@ export async function getFilesFromGitHub(path = ''): Promise<any[]> {
     }
     
     const data = await response.json();
-    debugLog(`${path} 경로에서 ${Array.isArray(data) ? data.length : 1}개 항목을 찾았습니다.`);
-    return Array.isArray(data) ? data : [data];
+    const result = Array.isArray(data) ? data : [data];
+    
+    // 결과 캐싱
+    await saveToCache(cacheKey, result);
+    
+    debugLog(`${path} 경로에서 ${result.length}개 항목을 찾았습니다.`);
+    return result;
   } catch (error) {
     console.error('GitHub에서 파일 목록을 가져오는데 실패했습니다:', error);
     return [];
@@ -101,6 +116,15 @@ export async function tryMultiplePaths(): Promise<{files: any[], successPath: st
  * @returns 마크다운 내용
  */
 export async function getMarkdownContent(path: string): Promise<string | null> {
+  const cacheKey = `github_content_${REPO_OWNER}_${REPO_NAME}_${path}`;
+  
+  // 캐시에서 먼저 확인
+  const cachedContent = await getFromCache<string>(cacheKey);
+  if (cachedContent) {
+    debugLog(`캐시에서 내용 로드: ${path}`);
+    return cachedContent;
+  }
+  
   debugLog(`path: ${path}`);
   const url = `${RAW_CONTENT}/${REPO_OWNER}/${REPO_NAME}/${BRANCH}/${path}`;
   debugLog(`마크다운 파일 요청: ${url}`);
@@ -118,6 +142,10 @@ export async function getMarkdownContent(path: string): Promise<string | null> {
     }
     
     const content = await response.text();
+    
+    // 결과 캐싱
+    await saveToCache(cacheKey, content);
+    
     debugLog(`${path} 파일 (${content.length} 바이트) 로드 완료`);
     return content;
   } catch (error) {
@@ -162,7 +190,12 @@ export function parseMarkdown(content: string): { metadata: any, content: string
     const colonIndex = line.indexOf(':');
     if (colonIndex !== -1) {
       const key = line.slice(0, colonIndex).trim();
-      const value = line.slice(colonIndex + 1).trim();
+      let value = line.slice(colonIndex + 1).trim();
+      
+      // 쉼표로 끝나는 값 정리
+      if (value.endsWith(',')) {
+        value = value.slice(0, -1);
+      }
       
       // 배열 형태 처리 (tags: [tag1, tag2])
       if (value.startsWith('[') && value.endsWith(']')) {
@@ -232,32 +265,26 @@ async function buildFileTree(rootPath: string, currentPath: string): Promise<Fil
       // 재귀적으로 하위 디렉토리 탐색
       node.children = await buildFileTree(rootPath, file.path);
     } else if (file.name.endsWith('.md')) {
-      // 마크다운 파일 처리
-      const content = await getMarkdownContent(file.path);
+      // 마크다운 파일 처리 - 실제 내용은 로드하지 않음
+      const slug = file.name.replace('.md', '');
       
-      if (content) {
-        const { metadata, content: markdownContent } = parseMarkdown(content);
-        const slug = file.name.replace('.md', '');
-        
-        // 경로에서 카테고리 추출
-        const { category, folderPath } = extractCategoryAndFolderPath(file.path, rootPath, DEFAULT_CATEGORY);
-        
-        // Post 객체 생성
-        const post: Post = {
-          title: metadata.title || file.name.replace('.md', ''),
-          description: metadata.description || '',
-          createdAt: metadata.date || new Date().toISOString().split('T')[0],
-          tags: Array.isArray(metadata.tags) 
-            ? metadata.tags 
-            : (metadata.tags ? metadata.tags.split(',').map((tag: string) => tag.trim()) : []),
-          slug,
-          category,
-          path: `/blog/${category}/${folderPath.join('/')}/${slug}`.replace(/\/+/g, '/'),
-          content: markdownContent
-        };
-        
-        node.post = post;
-      }
+      // 경로에서 카테고리 추출
+      const { category, folderPath } = extractCategoryAndFolderPath(file.path, rootPath, DEFAULT_CATEGORY);
+      
+      // Post 객체 생성 (content 없이 메타데이터만)
+      const post: Post = {
+        title: slug, // 기본값으로 파일명 사용
+        description: '',
+        createdAt: new Date().toISOString().split('T')[0], // 기본 날짜
+        tags: [],
+        slug,
+        category,
+        path: `/blog/${category}/${folderPath.join('/')}/${slug}`.replace(/\/+/g, '/'),
+        content: '', // 내용은 비워둠
+        contentLoaded: false // 내용이 로드되지 않았음을 표시
+      };
+      
+      node.post = post;
     }
     
     nodes.push(node);
