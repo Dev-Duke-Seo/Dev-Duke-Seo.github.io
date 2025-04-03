@@ -101,6 +101,7 @@ export async function tryMultiplePaths(): Promise<{files: any[], successPath: st
  * @returns 마크다운 내용
  */
 export async function getMarkdownContent(path: string): Promise<string | null> {
+  debugLog(`path: ${path}`);
   const url = `${RAW_CONTENT}/${REPO_OWNER}/${REPO_NAME}/${BRANCH}/${path}`;
   debugLog(`마크다운 파일 요청: ${url}`);
   
@@ -234,6 +235,7 @@ export async function loadGitHubPosts(): Promise<Post[]> {
     for (const file of markdownFiles) {
       debugLog(`처리 중: ${file.path}`);
       const content = await getMarkdownContent(file.path);
+      debugLog(`content: ${content}`);
       
       if (content) {
         const { metadata, content: markdownContent } = parseMarkdown(content);
