@@ -10,8 +10,16 @@ export interface Post {
   htmlContent?: string;
 }
 
+export interface FileNode {
+  name: string;
+  path: string;
+  type: 'file' | 'directory';
+  children?: FileNode[];
+  post?: Post;
+}
+
 export interface ContentTree {
-  [category: string]: Post[];
+  [category: string]: FileNode[];
 }
 
 export interface BlogLayoutProps {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { getContentTree, getPostWithHtml } from '../data/blog-data';
+import { getPostWithHtml } from '../data/blog-data';
 import Post from '../components/Post';
 import { Post as PostType } from '../types';
 

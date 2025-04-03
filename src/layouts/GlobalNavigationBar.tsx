@@ -10,8 +10,7 @@ export default function GlobalNavigationBar() {
 			<S.NavLinks>
 				<S.StyledLink to="/">Home</S.StyledLink>
 				<S.StyledLink to="/about">About</S.StyledLink>
-				<S.StyledLink to="/blog">Posts</S.StyledLink>
-				<S.StyledLink to="/contact">Contact</S.StyledLink>
+				{/* <S.StyledLink to="/blog">Posts</S.StyledLink> */}
 			</S.NavLinks>
 			<S.ThemeToggle onClick={toggleTheme}>
 				{isDarkMode ? "🌙" : "🌞"}

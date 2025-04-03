@@ -1,4 +1,4 @@
-import { Post } from '../types';
+import { Post, FileNode, ContentTree } from '../types';
 import { GitHubConfig } from '../config/github';
 
 // GitHub API URL
@@ -182,78 +182,65 @@ export function parseMarkdown(content: string): { metadata: any, content: string
 }
 
 /**
- * GitHub 저장소에서 블로그 포스트 목록을 가져와서 처리하는 함수
- * @returns 처리된 블로그 포스트 배열
+ * 파일 경로에서 카테고리와 폴더 경로를 추출하는 함수
+ * @param path 파일 경로
+ * @param basePath 기본 경로
+ * @param defaultCategory 기본 카테고리
+ * @returns 카테고리와 폴더 경로
  */
-export async function loadGitHubPosts(): Promise<Post[]> {
-  const posts: Post[] = [];
-  debugLog(`GitHub에서 블로그 포스트 로드 시작 - 저장소: ${REPO_OWNER}/${REPO_NAME}`);
+function extractCategoryAndFolderPath(path: string, basePath: string, defaultCategory: string): { category: string, folderPath: string[] } {
+  // 기본 경로를 제거한 상대 경로 구하기
+  const relativePath = path.startsWith(basePath) 
+    ? path.substring(basePath.length) 
+    : path;
   
-  try {
-    // 여러 경로 시도
-    const { files, successPath } = await tryMultiplePaths();
+  // 상대 경로를 폴더로 분리
+  const pathParts = relativePath.split('/').filter(p => p.length > 0);
+  
+  // 첫 번째 부분을 카테고리로, 나머지를 폴더 경로로 사용
+  if (pathParts.length > 0) {
+    return {
+      category: pathParts[0],
+      folderPath: pathParts.slice(1, -1) // 마지막 부분(파일명)을 제외한 경로
+    };
+  }
+  
+  return {
+    category: defaultCategory,
+    folderPath: []
+  };
+}
+
+/**
+ * 재귀적으로 디렉토리를 탐색하여 파일 노드를 구성하는 함수
+ * @param rootPath 기본 경로
+ * @param currentPath 현재 탐색 경로
+ * @returns 파일 노드 배열
+ */
+async function buildFileTree(rootPath: string, currentPath: string): Promise<FileNode[]> {
+  const files = await getFilesFromGitHub(currentPath);
+  const nodes: FileNode[] = [];
+  
+  for (const file of files) {
+    const node: FileNode = {
+      name: file.name,
+      path: file.path,
+      type: file.type === 'dir' ? 'directory' : 'file'
+    };
     
-    if (files.length === 0) {
-      console.warn('모든 경로에서 파일을 찾을 수 없었습니다.');
-      return [];
-    }
-    
-    debugLog(`${successPath} 경로에서 ${files.length}개의 파일을 찾았습니다.`);
-    
-    // 마크다운 파일만 필터링
-    const markdownFiles = files.filter(file => 
-      file.name.endsWith('.md') && file.type === 'file'
-    );
-    
-    debugLog(`${markdownFiles.length}개의 마크다운 파일을 찾았습니다.`);
-    
-    if (markdownFiles.length === 0) {
-      // 디렉토리 내부 탐색
-      for (const file of files) {
-        if (file.type === 'dir') {
-          debugLog(`${file.path} 디렉토리 내부 탐색 중...`);
-          const dirFiles = await getFilesFromGitHub(file.path);
-          
-          const dirMarkdownFiles = dirFiles.filter(f => 
-            f.name.endsWith('.md') && f.type === 'file'
-          );
-          
-          if (dirMarkdownFiles.length > 0) {
-            debugLog(`${file.path} 디렉토리에서 ${dirMarkdownFiles.length}개의 마크다운 파일을 찾았습니다.`);
-            markdownFiles.push(...dirMarkdownFiles);
-          }
-        }
-      }
-    }
-    
-    if (markdownFiles.length === 0) {
-      console.warn('마크다운 파일을 찾을 수 없었습니다.');
-      return [];
-    }
-    
-    // 각 마크다운 파일 처리
-    for (const file of markdownFiles) {
-      debugLog(`처리 중: ${file.path}`);
+    if (file.type === 'dir') {
+      // 재귀적으로 하위 디렉토리 탐색
+      node.children = await buildFileTree(rootPath, file.path);
+    } else if (file.name.endsWith('.md')) {
+      // 마크다운 파일 처리
       const content = await getMarkdownContent(file.path);
-      debugLog(`content: ${content}`);
       
       if (content) {
         const { metadata, content: markdownContent } = parseMarkdown(content);
-        
-        // 파일 이름에서 slug 추출 (예: hello-world.md -> hello-world)
         const slug = file.name.replace('.md', '');
         
-        // 카테고리 추출 (파일 경로에서 추출하거나 메타데이터에서 가져오기)
-        let category = metadata.category || DEFAULT_CATEGORY;
-        
-        // 경로에서 카테고리 추출 시도 (예: content/javascript/file.md -> javascript)
-        if (!metadata.category && file.path.includes('/')) {
-          const pathParts = file.path.split('/');
-          if (pathParts.length > 2) {
-            // 경로의 중간 부분을 카테고리로 사용
-            category = pathParts[pathParts.length - 2];
-          }
-        }
+        // 경로에서 카테고리 추출
+        const { category, folderPath } = extractCategoryAndFolderPath(file.path, rootPath, DEFAULT_CATEGORY);
         
         // Post 객체 생성
         const post: Post = {
@@ -265,14 +252,121 @@ export async function loadGitHubPosts(): Promise<Post[]> {
             : (metadata.tags ? metadata.tags.split(',').map((tag: string) => tag.trim()) : []),
           slug,
           category,
-          path: `/blog/${category}/${slug}`,
+          path: `/blog/${category}/${folderPath.join('/')}/${slug}`.replace(/\/+/g, '/'),
           content: markdownContent
         };
         
-        debugLog(`포스트 처리 완료: ${post.title}`);
-        posts.push(post);
+        node.post = post;
       }
     }
+    
+    nodes.push(node);
+  }
+  
+  return nodes;
+}
+
+/**
+ * 파일 노드를 카테고리별로 분류하는 함수
+ * @param nodes 파일 노드 배열
+ * @param contentTree 컨텐츠 트리
+ * @param basePath 기본 경로
+ */
+function categorizeNodes(nodes: FileNode[], contentTree: ContentTree, basePath: string): void {
+  for (const node of nodes) {
+    if (node.type === 'directory') {
+      // 디렉토리인 경우 하위 노드 처리
+      if (node.children && node.children.length > 0) {
+        categorizeNodes(node.children, contentTree, basePath);
+      }
+    } else if (node.post) {
+      // 파일에 연결된 포스트가 있는 경우
+      const { category } = extractCategoryAndFolderPath(node.path, basePath, DEFAULT_CATEGORY);
+      
+      if (!contentTree[category]) {
+        contentTree[category] = [];
+      }
+      
+      // 현재 파일 노드 경로를 기반으로 트리 구성
+      let currentNodes = contentTree[category];
+      const { folderPath } = extractCategoryAndFolderPath(node.path, basePath, DEFAULT_CATEGORY);
+      
+      // 폴더 경로를 따라 노드 탐색 및 생성
+      let currentPath = basePath;
+      for (const folder of folderPath) {
+        currentPath = `${currentPath}/${folder}`;
+        
+        // 폴더 노드 찾기 또는 생성
+        let folderNode = currentNodes.find(n => n.name === folder && n.type === 'directory');
+        if (!folderNode) {
+          folderNode = {
+            name: folder,
+            path: currentPath,
+            type: 'directory',
+            children: []
+          };
+          currentNodes.push(folderNode);
+        }
+        
+        if (!folderNode.children) {
+          folderNode.children = [];
+        }
+        
+        currentNodes = folderNode.children;
+      }
+      
+      // 파일 노드 추가
+      currentNodes.push(node);
+    }
+  }
+}
+
+/**
+ * 재귀적으로 파일 노드 배열에서 모든 포스트를 수집하는 함수
+ * @param nodes 파일 노드 배열
+ * @param postsArray 수집할 포스트 배열
+ */
+function collectPosts(nodes: FileNode[], postsArray: Post[]): void {
+  for (const node of nodes) {
+    if (node.post) {
+      postsArray.push(node.post);
+    }
+    
+    if (node.children && node.children.length > 0) {
+      collectPosts(node.children, postsArray);
+    }
+  }
+}
+
+/**
+ * GitHub 저장소에서 블로그 포스트 목록을 가져와서 처리하는 함수
+ * @returns 처리된 콘텐츠 트리와 포스트 배열
+ */
+export async function loadGitHubPosts(): Promise<{ contentTree: ContentTree, posts: Post[] }> {
+  const posts: Post[] = [];
+  const contentTree: ContentTree = {};
+  
+  debugLog(`GitHub에서 블로그 포스트 로드 시작 - 저장소: ${REPO_OWNER}/${REPO_NAME}`);
+  
+  try {
+    // 여러 경로 시도
+    const { successPath } = await tryMultiplePaths();
+    
+    if (!successPath) {
+      console.warn('모든 경로에서 파일을 찾을 수 없었습니다.');
+      return { contentTree, posts };
+    }
+    
+    // 파일 트리 구성
+    const fileNodes = await buildFileTree(successPath, successPath);
+    
+    // 노드를 카테고리별로 분류
+    categorizeNodes(fileNodes, contentTree, successPath);
+    
+    // 모든 카테고리의 노드에서 포스트 수집
+    Object.values(contentTree).forEach(nodes => {
+      collectPosts(nodes, posts);
+    });
     
     // 날짜 기준 내림차순 정렬
     const sortedPosts = posts.sort((a, b) => {
@@ -280,10 +374,10 @@ export async function loadGitHubPosts(): Promise<Post[]> {
     });
     
     debugLog(`총 ${sortedPosts.length}개의 포스트가 로드되었습니다.`);
-    return sortedPosts;
+    return { contentTree, posts: sortedPosts };
     
   } catch (error) {
     console.error('GitHub에서 블로그 포스트를 가져오는데 실패했습니다:', error);
-    return [];
+    return { contentTree, posts };
   }
 } 

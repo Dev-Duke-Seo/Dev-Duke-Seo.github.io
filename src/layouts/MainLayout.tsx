@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Sidebar from "components/Sidebar";
-import { getContentTree } from "data/blog-data";
+import { getContentTree } from "data/postLoader";
 import * as S from "../styles/components/MainLayoutStyles";
 import GlobalNavigationBar from "./GlobalNavigationBar";
 

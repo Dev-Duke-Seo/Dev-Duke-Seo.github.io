@@ -8,6 +8,10 @@ interface IconProps {
   expanded: boolean;
 }
 
+interface DepthProps {
+  depth: number;
+}
+
 export const SidebarContainer = styled.nav<NavigationContainerProps>`
   height: 100vh;
   width: ${props => props.isOpen ? '250px' : '0'};
@@ -119,4 +123,73 @@ export const EmptyMessage = styled.div`
   color: ${({ theme }) => theme.colors.textLight};
   font-style: italic;
   margin-top: 1rem;
+`;
+
+export const CategoryContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-left: 0.5rem;
+`;
+
+export const FolderItem = styled.div<DepthProps>`
+  /* margin-left: ${props => props.depth * 8}px; */
+  margin-left: 8px;
+  margin-bottom: 0.2rem;
+`;
+
+export const FolderHeader = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.2rem 0;
+  
+  &:hover {
+    color: ${({ theme }) => theme.colors.primary};
+  }
+`;
+
+export const FolderIcon = styled.span`
+  margin-right: 0.5rem;
+  font-size: 0.9rem;
+`;
+
+export const FolderName = styled.span`
+  font-size: 0.9rem;
+  font-weight: 500;
+`;
+
+export const FolderChildren = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.2rem;
+`;
+
+export const FileItem = styled.div<DepthProps>`
+  /* margin-left: ${props => props.depth * 8}px; */
+  margin-left: 8px;
+  margin-bottom: 0.2rem;
+  
+  a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: ${({ theme }) => theme.colors.textLight};
+    padding: 0.2rem 0;
+    
+    &:hover {
+      color: ${({ theme }) => theme.colors.primary};
+    }
+  }
+`;
+
+export const FileIcon = styled.span`
+  margin-right: 0.5rem;
+  font-size: 0.9rem;
+`;
+
+export const FileName = styled.span`
+  font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `; 
