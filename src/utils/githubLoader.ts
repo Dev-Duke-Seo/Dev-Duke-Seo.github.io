@@ -126,7 +126,7 @@ export async function getMarkdownContent(path: string): Promise<string | null> {
   }
   
   debugLog(`path: ${path}`);
-  const url = `${RAW_CONTENT}/${REPO_OWNER}/${REPO_NAME}/${BRANCH}/${path}`;
+  const url = `${RAW_CONTENT}/${REPO_OWNER}/${REPO_NAME}/${BRANCH}/${CONTENT_PATH}/${path}`;
   debugLog(`마크다운 파일 요청: ${url}`);
   
   try {
