@@ -1,7 +1,7 @@
 ---
-title: 'formatting',
-description: desc,
-date: 2020-03-10,
+title: 'formatting'
+description: desc
+date: 2020-03-10
 ---
 
 # Parent는 Child를 리렌더링하지 않는다?
