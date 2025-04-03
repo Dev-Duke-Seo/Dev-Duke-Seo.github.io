@@ -20,6 +20,7 @@ const LoadingContainer = styled.div`
   height: 100vh;
   flex-direction: column;
   font-size: 1.2rem;
+  background-color: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => theme.colors.text};
 `;
 
