@@ -1,13 +1,8 @@
 ---
-title: 'formatting'
+title: "formatting"
 description: desc
 date: 2020-03-10
-tags: [
-  'React',
-  'Owner',
-  'Parent',
-  'Children',
-]
+tags: ["React", "Owner", "Parent", "Children"]
 ---
 
 # Parent는 Child를 리렌더링하지 않는다?
