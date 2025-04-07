@@ -1,8 +1,13 @@
 ---
-title: "formatting"
-description: desc
-date: 2020-03-10
-tags: ["React", "Owner", "Parent", "Children"]
+title: Parent는 Child를 리렌더링하지 않는다?
+description: 리렌더링에 관한 일반적인 오해.
+release: false
+date: 2024-03-10
+tags:
+  - React
+  - Owner
+  - Parent
+  - Children
 ---
 
 # Parent는 Child를 리렌더링하지 않는다?

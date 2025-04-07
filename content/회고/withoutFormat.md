@@ -1,14 +1,13 @@
 ---
-title: 'formatting'
-description: desc
-date: 2020-03-10
-tags: [
-  'React',
-  'Owner',
-  'Parent',
-  'Children',
-]
+title: withoutFormat
+description: withoutFormat'에 대한 나의 생각
+release: false
+date: 2025-04-08
+tags:
+  - test
 ---
+
+
 
 # Parent는 Child를 리렌더링하지 않는다?
 
