@@ -19,7 +19,7 @@ import {
 	PostTag,
 	PostContent,
 	PostNotFound,
-} from "../styles/components/PostStyles";
+} from "./PostStyles";
 import { styled } from "styled-components";
 import TagList from "./TagList";
 

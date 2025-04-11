@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
-import * as S from '../styles/components/PostListStyles';
+import * as S from './PostListStyles';
 import { Post } from 'types/Post';
 
 export interface PostListProps {

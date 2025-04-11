@@ -2,7 +2,7 @@
 import useSidebarStore from "@/stores/SidebarStore";
 import React from "react";
 import { Link } from "react-router-dom";
-import * as S from "styles/components/SidebarStyles";
+import * as S from "@/layouts/Sidebar/SidebarStyles";
 import { FileNode as FileNodeType } from "types/ContentTree";
 
 

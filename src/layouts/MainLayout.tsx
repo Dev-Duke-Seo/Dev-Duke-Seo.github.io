@@ -1,6 +1,6 @@
 import React from "react";
-import Sidebar from "@/components/Sidebar/Sidebar";
-import * as S from "styles/components/MainLayoutStyles";
+import Sidebar from "@/layouts/Sidebar/Sidebar";
+import * as S from "@/layouts/MainLayoutStyles";
 import GlobalNavigationBar from "./GlobalNavigationBar";
 import useSidebarStore from "stores/SidebarStore";
 import ApiLimitModal from "components/ApiLimitModal";

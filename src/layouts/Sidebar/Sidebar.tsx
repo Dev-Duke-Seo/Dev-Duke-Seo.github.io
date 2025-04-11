@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import * as S from "styles/components/SidebarStyles";
+import * as S from "@/layouts/Sidebar/SidebarStyles";
 import useSidebarStore from "stores/SidebarStore";
 import useContentStore from "@/stores/ContentStore";
 import TreeNode from "./TreeNode";
