@@ -30,21 +30,21 @@ export const Item = styled.li`
 `;
 
 export const Card = styled.article`
-	background: ${({ theme }) => theme.darkMode 
-		? `radial-gradient(
+	background: ${({ theme }) =>
+		theme.darkMode
+			? `radial-gradient(
 			ellipse at right top,
 			rgba(0, 236, 157, 0.56) 0%,
 			#151419 45%,
 			#151419 100%
 		)`
-		: `radial-gradient(
+			: `radial-gradient(
 			ellipse at right top,
 			rgba(74, 107, 255, 0.3) 0%, 
 			rgba(106, 139, 255, 0.2) 25%,
 			${theme.colors.backgroundSub} 50%,
 			${theme.colors.backgroundSub} 100%
-		)`
-	};
+		)`};
 
 	border: 1px solid ${({ theme }) => theme.colors.border};
 	border-radius: 8px;
@@ -76,8 +76,9 @@ export const Card = styled.article`
 			linear-gradient(#fff 0 0);
 		-webkit-mask-composite: destination-out;
 		mask-composite: exclude;
-		background: ${({ theme }) => theme.darkMode
-			? `linear-gradient(
+		background: ${({ theme }) =>
+			theme.darkMode
+				? `linear-gradient(
 				45deg,
 				#11ff2c,
 				#00ff0d,
@@ -85,39 +86,40 @@ export const Card = styled.article`
 				#370bcb,
 				#1890ff
 			) border-box`
-			: `linear-gradient(
+				: `linear-gradient(
 				45deg,
 				#4a6bff,
 				#6b8bff,
 				#8ea7ff,
 				#4a6bff,
 				#0c45ff
-			) border-box`
-		};
+			) border-box`};
 	}
-
 	${Item}:hover & {
-		box-shadow: 0 10px 20px ${({ theme }) => theme.darkMode ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.1)'};
-		
+		box-shadow: 0 10px 20px
+			${({ theme }) =>
+				theme.darkMode ? "rgba(0, 0, 0, 0.3)" : "rgba(0, 0, 0, 0.1)"};
+
 		&::before {
-			background: ${({ theme }) => theme.darkMode
-				? `linear-gradient(
+			background: ${({ theme }) =>
+				theme.darkMode
+					? `linear-gradient(
 					45deg,
 					#00ff0d,
 					#11ff2c,
-					#1890ff,
-					#370bcb,
-					#00b4ff
+					#00ec9d,
+					#00b4ff,
+					#370bcb
 				) border-box`
-				: `linear-gradient(
+					: `linear-gradient(
 					45deg,
 					#1854ff,
 					#4a6bff,
 					#90b0ff,
 					#6b8bff,
 					#1844ff
-				) border-box`
-			};
+				) border-box
+				 `};
 		}
 	}
 
@@ -168,8 +170,8 @@ export const CardTags = styled.div`
 `;
 
 export const CardTag = styled.span`
-	background-color: ${({ theme }) => theme.darkMode ? '#333333' : '#f1f5f9'};
-	color: ${({ theme }) => theme.darkMode ? '#b3b3b3' : '#4a5568'};
+	background-color: ${({ theme }) => (theme.darkMode ? "#333333" : "#f1f5f9")};
+	color: ${({ theme }) => (theme.darkMode ? "#b3b3b3" : "#4a5568")};
 	padding: 0.2rem 0.5rem;
 	border-radius: 20px;
 	font-size: 0.75rem;
