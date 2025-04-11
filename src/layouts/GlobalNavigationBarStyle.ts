@@ -23,11 +23,12 @@ export const StyledLink = styled(Link)`
 	}
 `;
 
-export const ToggleButton = styled.div`
+export const ToggleButton = styled.a`
 	font-size: 1.5rem;
 	font-weight: bold;
 	color: ${({ theme }) => theme.colors.text};
 	text-decoration: none;
+	cursor: pointer;
 	&:hover {
 		color: ${({ theme }) => theme.colors.primary};
 		transition: color 0.2s;
