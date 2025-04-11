@@ -193,4 +193,23 @@ export const FileName = styled.span<FileNameProps>`
   text-overflow: ellipsis;
   color: ${props => props.$isActive ? props.theme.colors.primary : props.theme.colors.textLight};
   font-weight: ${props => props.$isActive ? 'bold' : 'normal'};
+`;
+
+export const Resizer = styled.div<{ $isOpen: boolean }>`
+  position: fixed;
+  top: 0;
+  left: ${props => props.$isOpen ? props.style?.left : '0'}px;
+  width: 4px;
+  height: 100%;
+  background: transparent;
+  cursor: col-resize;
+  z-index: 1001;
+  
+  &:hover {
+    background: ${({ theme }) => theme.colors.primary}40;
+  }
+  
+  &:active {
+    background: ${({ theme }) => theme.colors.primary}80;
+  }
 `; 
