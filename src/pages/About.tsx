@@ -5,12 +5,15 @@ const ContentContainer = styled.div`
 	max-width: ${({ theme }) => theme.maxWidth};
 	margin: 0 auto;
 	padding: 4rem 2rem;
+	display: flex;
+	flex-direction: column;
 `;
 
 const Title = styled.h1`
 	font-size: 3.2rem;
 	color: ${(props) => props.theme.colors.text};
 	margin-bottom: 4rem;
+	text-align: end;
 `;
 
 const SectionContainer = styled.div`
@@ -111,16 +114,24 @@ const ContactLink = styled.a`
 	}
 `;
 
-const About: React.FC = () => {
+export default function About() {
 	return (
 		<ContentContainer>
-			<Title>About Me</Title>
+			<SectionContainer>
+				<Title style={{ textAlign: "end" }}>About Me</Title>
+			</SectionContainer>
 
 			<SectionContainer>
-				<SectionContent style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
-					<ProfileImage >
+				<SectionContent
+					style={{
+						display: "flex",
+						alignItems: "center",
+						justifyContent: "flex-end",
+					}}
+				>
+					<ProfileImage>
 						<img src="/duke-cartoon.jpeg" alt="Duke's profile" />
-					</ProfileImage>					
+					</ProfileImage>
 				</SectionContent>
 				<SectionContent>
 					<SectionTitle style={{ textAlign: "start" }}>Duke</SectionTitle>
@@ -139,8 +150,6 @@ const About: React.FC = () => {
 						</li>
 					</SkillList>
 				</SectionContent>
-
-				
 			</SectionContainer>
 			<SectionContainer>
 				<SectionTitle>Introduction</SectionTitle>
@@ -196,6 +205,4 @@ const About: React.FC = () => {
 			</SectionContainer>
 		</ContentContainer>
 	);
-};
-
-export default About;
+}
