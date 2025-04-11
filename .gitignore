@@ -24,6 +24,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+.obsidian
 
-#private contents start with '_'
-content/_privateww
+content/_template
