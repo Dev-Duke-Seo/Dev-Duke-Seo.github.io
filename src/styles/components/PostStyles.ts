@@ -15,11 +15,11 @@ export const PostTitle = styled.h1`
   font-size: 2.2rem;
   line-height: 1.3;
   margin-bottom: 1rem;
-  color: #222;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const PostMeta = styled.div`
-  color: #666;
+  color: ${({ theme }) => theme.colors.text};
   margin-bottom: 1rem;
   font-size: 0.9rem;
 `;

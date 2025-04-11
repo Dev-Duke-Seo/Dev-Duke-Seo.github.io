@@ -1,20 +1,16 @@
 import styled from 'styled-components';
 
 interface NavigationContainerProps {
-  isOpen: boolean;
+ $isOpen: boolean;
 }
 
 interface IconProps {
   expanded: boolean;
 }
 
-interface DepthProps {
-  depth: number;
-}
-
 export const SidebarContainer = styled.nav<NavigationContainerProps>`
   height: 100vh;
-  width: ${props => props.isOpen ? '250px' : '0'};
+  width: ${props => props.$isOpen ? '250px' : '0'};
   position: fixed;
   top: 0;
   left: 0;
@@ -22,14 +18,14 @@ export const SidebarContainer = styled.nav<NavigationContainerProps>`
   transition: all 0.3s ease;
   overflow-x: hidden;
   border-right: 1px solid ${({ theme }) => theme.colors.border};
-  padding: ${props => props.isOpen ? '1rem' : '0'};
+  padding: ${props => props.$isOpen ? '1rem' : '0'};
   z-index: 1000;
-  box-shadow: ${props => props.isOpen ? '0 0 10px rgba(0, 0, 0, 0.1)' : 'none'};
+  box-shadow: ${props => props.$isOpen ? '0 0 10px rgba(0, 0, 0, 0.1)' : 'none'};
 `;
 
-export const ToggleButton = styled.button<{ isOpen: boolean }>`
+export const ToggleButton = styled.button<{ $isOpen: boolean }>`
   position: fixed;
-  left: ${props => props.isOpen ? '250px' : '0'};
+  left: ${props => props.$isOpen ? '250px' : '0'};
   top: 50%;
   transform: translateY(-50%);
   background: ${({ theme }) => theme.colors.primary};
@@ -50,7 +46,7 @@ export const ToggleButton = styled.button<{ isOpen: boolean }>`
 `;
 
 export const Title = styled.h2`
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   margin-bottom: 1.5rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
@@ -90,7 +86,7 @@ export const Icon = styled.span<IconProps>`
 `;
 
 export const CategoryName = styled.span`
-  font-size: 0.95rem;
+  font-size: 1.2rem;
 `;
 
 export const PostList = styled.ul`
@@ -125,14 +121,14 @@ export const EmptyMessage = styled.div`
   margin-top: 1rem;
 `;
 
+
 export const CategoryContent = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 0.5rem;
 `;
 
-export const FolderItem = styled.div<DepthProps>`
-  /* margin-left: ${props => props.depth * 8}px; */
+export const FolderItem = styled.div`
   margin-left: 8px;
   margin-bottom: 0.2rem;
 `;
@@ -154,7 +150,7 @@ export const FolderIcon = styled.span`
 `;
 
 export const FolderName = styled.span`
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   font-weight: 500;
 `;
 
@@ -164,8 +160,7 @@ export const FolderChildren = styled.div`
   margin-top: 0.2rem;
 `;
 
-export const FileItem = styled.div<DepthProps>`
-  /* margin-left: ${props => props.depth * 8}px; */
+export const FileItem = styled.div`
   margin-left: 8px;
   margin-bottom: 0.2rem;
   
@@ -187,9 +182,15 @@ export const FileIcon = styled.span`
   font-size: 0.9rem;
 `;
 
-export const FileName = styled.span`
-  font-size: 0.85rem;
+interface FileNameProps {
+  $isActive: boolean;
+}
+
+export const FileName = styled.span<FileNameProps>`
+  font-size: 1.2rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: ${props => props.$isActive ? props.theme.colors.primary : props.theme.colors.textLight};
+  font-weight: ${props => props.$isActive ? 'bold' : 'normal'};
 `; 

@@ -42,6 +42,7 @@ const GlobalStyle = createGlobalStyle`
   h6 { font-size: 1.6rem; } /* 16px */
 
   p {
+    color: ${({ theme }) => theme.colors.text}; 
     margin-top: 0;
     font-size: 1.6rem; /* 16px */
   }
@@ -78,6 +79,19 @@ const GlobalStyle = createGlobalStyle`
     padding-left: 1.5rem;
     font-size: 1.6rem; /* 16px */
   }
+
+  /* SyntaxHighlighter에 의해 생성된 pre 태그에 대한 스타일 재정의 */
+  pre {
+    background-color: ${({ theme }) => theme.colors.secondary} !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: ${({ theme }) => theme.colors.text};
+  }
+
+
 `;
 
 export default GlobalStyle; 
