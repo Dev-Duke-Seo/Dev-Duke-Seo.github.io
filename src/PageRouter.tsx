@@ -1,30 +1,19 @@
-import { Routes, Route } from "react-router";
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
+import PostPage from './pages/PostPage';
+import TagsPage from './pages/TagsPage';
+import TagPostsPage from './pages/TagPostsPage';
 
-import Home from "./pages/Home";
-import About from "./pages/About";
-import PostPage from "./pages/PostPage";
-
-
-interface Route {
-  path: string;
-  element: React.ReactNode;
-}
-
-const pageRoutes: Route[] = [
-  { path: "/", element: <Home /> },
-  { path: "/about", element: <About /> },
-  { path: "/blog/:category/*", element: <PostPage /> },
-];
-
-
-const PageRouter = () => {
+export default function PageRouter() {
   return (
     <Routes>
-      {pageRoutes.map((route) => (
-        <Route key={route.path} path={route.path} element={route.element} />
-      ))}
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/content/*" element={<PostPage />} />
+      <Route path="/tags" element={<TagsPage />} />
+      <Route path="/tags/:tagName" element={<TagPostsPage />} />
     </Routes>
   );
-};
-
-export default PageRouter;
+}
