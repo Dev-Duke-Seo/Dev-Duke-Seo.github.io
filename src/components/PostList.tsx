@@ -1,11 +1,15 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { format, parseISO } from 'date-fns';
+import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
-import { PostListProps } from '../types';
 import * as S from '../styles/components/PostListStyles';
+import { Post } from 'types/Post';
 
-const PostList: React.FC<PostListProps> = ({ posts, title = "최근 포스트" }) => {
+export interface PostListProps {
+  posts: Post[];
+  title?: string;
+} 
+
+export default function PostList({ posts, title = "최근 포스트" }: PostListProps) {
   if (!posts || posts.length === 0) {
     return (
       <S.EmptyMessage>
@@ -20,25 +24,27 @@ const PostList: React.FC<PostListProps> = ({ posts, title = "최근 포스트" }
       <S.Title>{title}</S.Title>
       <S.List>
         {posts.map(post => (
-          <S.Item key={`${post.category}-${post.slug}`}>
-            <Link to={post.path} style={{ textDecoration: 'none' }}>
+          <S.Item key={`${post.category}-${post.title}`}>
+            <Link to={`/${post.path}`} style={{ textDecoration: 'none' }}>
               <S.Card>
                 <S.CardTitle>{post.title}</S.CardTitle>
                 {post.description && (
                   <S.CardDescription>{post.description}</S.CardDescription>
                 )}
                 
-                <S.CardMeta>
-                  {post.createdAt && (
-                    <S.CardDate dateTime={post.createdAt}>
-                      {format(parseISO(post.createdAt), 'yyyy년 MM월 dd일', { locale: ko })}
+                  <S.CardMeta>
+                    {post.date ? (
+                    <S.CardDate dateTime={post.date.toISOString()}>
+                      {format(post.date, 'yyyy년 MM월 dd일', { locale: ko })}
                     </S.CardDate>
+                  ) : (
+                    <S.CardDate>작성일 미상</S.CardDate>
                   )}
                   
                   {post.tags && post.tags.length > 0 && (
                     <S.CardTags>
                       {post.tags.map(tag => (
-                        <S.CardTag key={tag}>#{tag}</S.CardTag>
+                        <S.CardTag key={tag.name}>#{tag.name}</S.CardTag>
                       ))}
                     </S.CardTags>
                   )}
@@ -50,6 +56,4 @@ const PostList: React.FC<PostListProps> = ({ posts, title = "최근 포스트" }
       </S.List>
     </S.Container>
   );
-};
-
-export default PostList; 
+}
