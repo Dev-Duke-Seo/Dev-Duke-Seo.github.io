@@ -23,6 +23,17 @@ export const StyledLink = styled(Link)`
 	}
 `;
 
+export const ToggleButton = styled.div`
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: ${({ theme }) => theme.colors.text};
+	text-decoration: none;
+	&:hover {
+		color: ${({ theme }) => theme.colors.primary};
+		transition: color 0.2s;
+		text-decoration: none;
+	}
+`;
 
 export const Logo = styled(StyledLink)`
 	letter-spacing: 0;
