@@ -29,17 +29,6 @@ export default function Post({ post }: PostProps) {
 
 	const { isDarkMode, toggleTheme } = useThemeStore();
 
-	// 다크/라이트 모드 감지
-	useEffect(() => {
-		const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-		const handleChange = (e: MediaQueryListEvent) => {
-			toggleTheme();
-		};
-		
-		mediaQuery.addEventListener('change', handleChange);
-		return () => mediaQuery.removeEventListener('change', handleChange);
-	}, []);
-
 	// 하이라이터 초기화
 	useEffect(() => {
 		async function initializeHighlighter() {
