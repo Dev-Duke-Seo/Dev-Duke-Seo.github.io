@@ -1,169 +1,56 @@
 import React from "react";
-import styled from "styled-components";
-
-const ContentContainer = styled.div`
-	max-width: ${({ theme }) => theme.maxWidth};
-	margin: 0 auto;
-	padding: 4rem 2rem;
-	display: flex;
-	flex-direction: column;
-`;
-
-const Title = styled.h1`
-	font-size: 3.2rem;
-	color: ${(props) => props.theme.colors.text};
-	margin-bottom: 4rem;
-	text-align: end;
-`;
-
-const SectionContainer = styled.div`
-	display: grid;
-	grid-template-columns: 300px 1fr;
-	gap: 4rem;
-	margin-bottom: 4rem;
-
-	@media (max-width: 768px) {
-		grid-template-columns: 1fr;
-		gap: 2rem;
-	}
-`;
-
-const SectionTitle = styled.h2`
-	font-size: 2.4rem;
-	color: ${(props) => props.theme.colors.text};
-	position: relative;
-	padding-bottom: 1rem;
-	text-align: end;
-
-	&::after {
-		content: "";
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		width: 40px;
-		height: 3px;
-		/* background: ${(props) => props.theme.colors.primary}; */
-		border-radius: 2px;
-	}
-`;
-
-const SectionContent = styled.div`
-	color: ${(props) => props.theme.colors.textLight};
-	font-size: 1.6rem;
-	line-height: 1.8;
-`;
-
-const ProfileImage = styled.div`
-	width: 200px;
-	height: 200px;
-	overflow: hidden;
-	border: 3px solid ${(props) => props.theme.colors.border};
-	box-shadow: 0 0 15rem rgba(0, 0, 0, 0.5);
-	position: relative;
-	border-radius: 50%;
-	margin-bottom: 2rem;
-
-	img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
-`;
-
-const SkillList = styled.ul`
-	list-style: none;
-	padding: 0;
-	margin: 0;
-
-	li {
-		margin-bottom: 1.5rem;
-		display: flex;
-		align-items: center;
-
-		&::before {
-			content: "•";
-			margin-right: 1rem;
-			color: ${(props) => props.theme.colors.primary};
-			font-size: 1.8rem;
-		}
-
-		strong {
-			color: ${(props) => props.theme.colors.textLight};
-			font-weight: 600;
-			margin-right: 0.5rem;
-			min-width: 100px;
-			position: relative;
-
-			&::after {
-				content: ":";
-				position: absolute;
-				right: 0;
-				color: ${(props) => props.theme.colors.textLight};
-			}
-		}
-	}
-`;
-
-const ContactLink = styled.a`
-	color: ${(props) => props.theme.colors.primary};
-	text-decoration: none;
-	transition: color 0.2s ease;
-
-	&:hover {
-		color: ${(props) => props.theme.colors.textLight};
-	}
-`;
+import * as S from "./AboutPageStyles";
 
 export default function About() {
 	return (
-		<ContentContainer>
-			<SectionContainer>
-				<Title style={{ textAlign: "end" }}>About Me</Title>
-			</SectionContainer>
+		<S.ContentContainer>
+			<S.SectionContainer>
+				<S.Title style={{ textAlign: "end" }}>About Me</S.Title>
+			</S.SectionContainer>
 
-			<SectionContainer>
-				<SectionContent
+			<S.SectionContainer>
+				<S.SectionContent
 					style={{
 						display: "flex",
 						alignItems: "center",
 						justifyContent: "flex-end",
 					}}
 				>
-					<ProfileImage>
+					<S.ProfileImage>
 						<img src="/duke-cartoon.jpeg" alt="Duke's profile" />
-					</ProfileImage>
-				</SectionContent>
-				<SectionContent>
-					<SectionTitle style={{ textAlign: "start" }}>Duke</SectionTitle>
-					<SkillList>
+					</S.ProfileImage>
+				</S.SectionContent>
+				<S.SectionContent>
+					<S.SectionTitle style={{ textAlign: "start" }}>Duke</S.SectionTitle>
+					<S.SkillList>
 						<li>
 							<strong>이메일</strong>
-							<ContactLink href="mailto:duke.dev.seo@gmail.com">
+							<S.ContactLink href="mailto:duke.dev.seo@gmail.com">
 								duke.dev.seo@gmail.com
-							</ContactLink>
+							</S.ContactLink>
 						</li>
 						<li>
 							<strong>GitHub</strong>
-							<ContactLink href="https://github.com/dev-duke-seo">
+							<S.ContactLink href="https://github.com/dev-duke-seo">
 								github.com/dev-duke-seo
-							</ContactLink>
+							</S.ContactLink>
 						</li>
-					</SkillList>
-				</SectionContent>
-			</SectionContainer>
-			<SectionContainer>
-				<SectionTitle>Introduction</SectionTitle>
-				<SectionContent>
+					</S.SkillList>
+				</S.SectionContent>
+			</S.SectionContainer>
+			<S.SectionContainer>
+				<S.SectionTitle>Introduction</S.SectionTitle>
+				<S.SectionContent>
 					안녕하세요! 저는 기술과 개발에 대한 이야기를 공유하는 개발자입니다. 이
 					블로그에서는 제가 배운 것들, 경험한 것들, 그리고 생각하는 것들을
 					공유하고자 합니다.
-				</SectionContent>
-			</SectionContainer>
+				</S.SectionContent>
+			</S.SectionContainer>
 
-			<SectionContainer>
-				<SectionTitle>Skills</SectionTitle>
-				<SectionContent>
-					<SkillList>
+			<S.SectionContainer>
+				<S.SectionTitle>Skills</S.SectionTitle>
+				<S.SectionContent>
+					<S.SkillList>
 						<li>
 							<strong>Frontend</strong> NEXT.JS, React, TypeScript, JavaScript,
 							HTML, CSS
@@ -180,29 +67,29 @@ export default function About() {
 						<li>
 							<strong>Other</strong> Git, CI/CD
 						</li>
-					</SkillList>
-				</SectionContent>
-			</SectionContainer>
+					</S.SkillList>
+				</S.SectionContent>
+			</S.SectionContainer>
 
-			<SectionContainer>
-				<SectionTitle>Contact</SectionTitle>
-				<SectionContent>
-					<SkillList>
+			<S.SectionContainer>
+				<S.SectionTitle>Contact</S.SectionTitle>
+				<S.SectionContent>
+					<S.SkillList>
 						<li>
 							<strong>이메일</strong>
-							<ContactLink href="mailto:duke.dev.seo@gmail.com">
+							<S.ContactLink href="mailto:duke.dev.seo@gmail.com">
 								duke.dev.seo@gmail.com
-							</ContactLink>
+							</S.ContactLink>
 						</li>
 						<li>
 							<strong>GitHub</strong>
-							<ContactLink href="https://github.com/dev-duke-seo">
+							<S.ContactLink href="https://github.com/dev-duke-seo">
 								github.com/dev-duke-seo
-							</ContactLink>
+							</S.ContactLink>
 						</li>
-					</SkillList>
-				</SectionContent>
-			</SectionContainer>
-		</ContentContainer>
+					</S.SkillList>
+				</S.SectionContent>
+			</S.SectionContainer>
+		</S.ContentContainer>
 	);
 }
