@@ -2,11 +2,8 @@ import React from "react";
 import useContentStore from "stores/ContentStore";
 import * as S from "./TagListStyle";
 
-interface TagListProps {
-  className?: string;
-}
 
-export default function TagList({ className }: TagListProps) {
+export default function TagList() {
   const { allTags, selectedTag, setSelectedTag } = useContentStore();
 
   if (!allTags || allTags.length === 0) {
@@ -22,7 +19,7 @@ export default function TagList({ className }: TagListProps) {
   };
 
   return (
-    <S.TagContainer className={className}>
+    <S.TagContainer>
       <S.TagItem
         $active={selectedTag === null}
         onClick={() => setSelectedTag(null)}
