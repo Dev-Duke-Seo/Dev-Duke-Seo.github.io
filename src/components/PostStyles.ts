@@ -78,13 +78,13 @@ export const PostContent = styled.div`
     padding: 0.2rem 0.4rem;
     border-radius: 3px;
     font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-    font-size: 0.9em;
+    font-size: 1.1em;
   }
 
   pre {
     background-color: #f8f8f8;
-    padding: 1rem;
-    border-radius: 4px;
+    padding: 1.5rem;
+    border-radius: 8px;
     overflow-x: auto;
     margin: 1.5rem 0;
   }
@@ -92,7 +92,46 @@ export const PostContent = styled.div`
   pre code {
     background-color: transparent;
     padding: 0;
+    font-size: 1.1em;
   }
+
+  /* Shiki 스타일링 */
+  .shiki {
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 1.1em;
+    line-height: 1.5;
+    tab-size: 2;
+    margin: 1.5rem 0;
+    border: 1px solid #e0e0e0;
+  }
+
+  /* 코드 블록 내 실제 코드 컨테이너 */
+  .shiki code {
+    background-color: transparent;
+    padding: 1rem;
+    display: block;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  /* 코드 라인 */
+  .shiki [data-line] {
+    padding: 0 0.5rem;
+  }
+  
+  /* 코드 블록 테마 */
+  body:not(.dark-theme) .shiki {
+    background-color: #f6f8fa !important;
+    border-color: #e0e0e0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  body.dark-theme .shiki {
+    background-color: #2d333b !important;
+    border-color: #444;
+  }
+
+  /* 토큰별 스타일링은 Shiki의 테마를 사용 */
 
   ul,
   ol {
