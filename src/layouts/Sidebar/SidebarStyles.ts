@@ -14,7 +14,8 @@ export const SidebarContainer = styled.nav<NavigationContainerProps>`
   position: fixed;
   top: 0;
   left: 0;
-  background-color: ${({ theme }) => theme.colors.background};
+  background-color: ${({ theme }) => theme.colors.background}F0;
+  backdrop-filter: blur(5px);
   transition: all 0.3s ease;
   overflow-x: hidden;
   border-right: 1px solid ${({ theme }) => theme.colors.border};
@@ -25,7 +26,7 @@ export const SidebarContainer = styled.nav<NavigationContainerProps>`
 
 export const ToggleButton = styled.button<{ $isOpen: boolean }>`
   position: fixed;
-  left: ${props => props.$isOpen ? '250px' : '0'};
+  left: ${props => props.$isOpen ? props.style?.left : '0'};
   top: 50%;
   transform: translateY(-50%);
   background: ${({ theme }) => theme.colors.primary};

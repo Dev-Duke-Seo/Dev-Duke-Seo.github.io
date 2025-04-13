@@ -13,7 +13,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 	// const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 	const { isSidebarOpen } = useSidebarStore();
 	return (
-		<S.Container $sidebarOpen={isSidebarOpen}>
+		<S.Container>
 			<S.Header>
 				<GlobalNavigationBar />
 			</S.Header>
