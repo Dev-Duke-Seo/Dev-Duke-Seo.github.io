@@ -8,6 +8,12 @@ export const Nav = styled.nav`
 	max-width: ${({ theme }) => theme.maxWidth};
 	margin: 0 auto;
 	position: relative;
+	padding: 0 1rem;
+	
+	@media (max-width: 768px) {
+		flex-wrap: wrap;
+		padding: 1rem;
+	}
 `;
 
 
@@ -20,6 +26,10 @@ export const StyledLink = styled(Link)`
 		color: ${({ theme }) => theme.colors.primary};
 		transition: color 0.2s;
 		text-decoration: none;
+	}
+	
+	@media (max-width: 768px) {
+		font-size: 1.2rem;
 	}
 `;
 
@@ -34,6 +44,10 @@ export const ToggleButton = styled.a`
 		transition: color 0.2s;
 		text-decoration: none;
 	}
+	
+	@media (max-width: 768px) {
+		font-size: 1.2rem;
+	}
 `;
 
 export const Logo = styled(StyledLink)`
@@ -46,6 +60,11 @@ export const Logo = styled(StyledLink)`
 		transform: scale(1.05);
 		transition: transform 0.2s ease;
 	}
+	
+	@media (max-width: 768px) {
+		font-size: 2.5rem;
+		margin-bottom: 0.5rem;
+	}
 `;
 
 export const NavLinks = styled.div`
@@ -54,6 +73,16 @@ export const NavLinks = styled.div`
 	position: absolute;
 	left: 50%;
 	transform: translateX(-50%);
+	
+	@media (max-width: 768px) {
+		position: relative;
+		left: 0;
+		transform: none;
+		width: 100%;
+		justify-content: space-between;
+		margin-top: 1rem;
+		gap: 1rem;
+	}
 `;
 
 export const ThemeToggle = styled.button`
@@ -66,5 +95,11 @@ export const ThemeToggle = styled.button`
 	transition: background-color 0.2s;
 	&:hover {
 		background-color: ${({ theme }) => theme.colors.secondary};
+	}
+	
+	@media (max-width: 768px) {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
 	}
 `;
