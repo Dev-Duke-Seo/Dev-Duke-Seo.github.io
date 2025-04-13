@@ -52,7 +52,7 @@ export default function Post({ post }: PostProps) {
 			// 코드 블록 대체하기
 			processedContent = processedContent.replace(codeBlockRegex, (match, lang, code) => {
 				try {
-					const language = lang || 'text';
+					const language = lang || 'jsx';
 					const theme = isDarkMode ? 'github-dark-dimmed' : 'github-light';
 					const highlighted = highlighter.codeToHtml(code, {
 						lang: language,

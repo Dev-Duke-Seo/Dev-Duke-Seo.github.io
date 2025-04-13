@@ -74,11 +74,12 @@ export const PostContent = styled.div`
   }
 
   code {
-    background-color: #f5f5f5;
+    background-color: ${({ theme }) => theme.colors.backgroundSub};
     padding: 0.2rem 0.4rem;
     border-radius: 3px;
     font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
     font-size: 1.1em;
+    color: ${({ theme }) => theme.colors.text};
   }
 
   pre {
