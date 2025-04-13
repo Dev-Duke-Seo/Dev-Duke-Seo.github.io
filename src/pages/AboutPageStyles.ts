@@ -61,10 +61,11 @@ export const SectionContent = styled.div<{ alignReverse?: boolean }>`
 	${({ alignReverse }) =>
 		alignReverse &&
 		css`
+			display: flex;
+			flex-direction: row-reverse;
+			align-items: center;
 			@media (max-width: 768px) {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
+				justify-content: center;
 			}
 		`}
 `;
