@@ -5,17 +5,11 @@ export default function About() {
 	return (
 		<S.ContentContainer>
 			<S.SectionContainer>
-				<S.Title style={{ textAlign: "end" }}>About Me</S.Title>
+				<S.Title>About Me</S.Title>
 			</S.SectionContainer>
 
 			<S.SectionContainer>
-				<S.SectionContent
-					style={{
-						display: "flex",
-						alignItems: "center",
-						justifyContent: "flex-end",
-					}}
-				>
+				<S.SectionContent alignReverse={true}>
 					<S.ProfileImage>
 						<img src="/duke-cartoon.jpeg" alt="Duke's profile" />
 					</S.ProfileImage>

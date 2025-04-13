@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const ContentContainer = styled.div`
 	max-width: ${({ theme }) => theme.maxWidth};
@@ -13,6 +13,10 @@ export const Title = styled.h1`
 	color: ${(props) => props.theme.colors.text};
 	margin-bottom: 4rem;
 	text-align: end;
+
+	@media (max-width: 768px) {
+		text-align: start;
+	}
 `;
 
 export const SectionContainer = styled.div`
@@ -34,6 +38,10 @@ export const SectionTitle = styled.h2`
 	padding-bottom: 1rem;
 	text-align: end;
 
+	@media (max-width: 768px) {
+		text-align: start;
+	}
+
 	&::after {
 		content: "";
 		position: absolute;
@@ -41,15 +49,24 @@ export const SectionTitle = styled.h2`
 		left: 0;
 		width: 40px;
 		height: 3px;
-		/* background: ${(props) => props.theme.colors.primary}; */
 		border-radius: 2px;
 	}
 `;
 
-export const SectionContent = styled.div`
+export const SectionContent = styled.div<{ alignReverse?: boolean }>`
 	color: ${(props) => props.theme.colors.textLight};
 	font-size: 1.6rem;
 	line-height: 1.8;
+
+	${({ alignReverse }) =>
+		alignReverse &&
+		css`
+			@media (max-width: 768px) {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+		`}
 `;
 
 export const ProfileImage = styled.div`

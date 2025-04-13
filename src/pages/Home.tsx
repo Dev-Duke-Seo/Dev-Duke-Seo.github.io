@@ -36,8 +36,8 @@ const Home: React.FC = () => {
 	return (
 		<HomeContainer>
 			<HomeHeader>
-				<Title>좋은 동료가 되기위한 성장일지</Title>
-				<Subtitle>&quot;오늘의 유행이 내일의 구식.&quot;</Subtitle>
+				<Title>사람을 위한 기술을 생각합니다.</Title>
+				<Subtitle>&quot;기계는 실행하고, 사람은 이해한다.&quot;</Subtitle>
 			</HomeHeader>
 
 			<PostList posts={recentPosts} title="최근 포스트" />
