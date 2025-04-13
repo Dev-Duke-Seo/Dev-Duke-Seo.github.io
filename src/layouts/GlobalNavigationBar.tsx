@@ -30,7 +30,7 @@ export default function GlobalNavigationBar() {
 				<S.StyledLink to="/about">About</S.StyledLink>
 				<S.ToggleButton onClick={() => {
 					onToggle();
-				}}>Blogs</S.ToggleButton>
+				}}>Posts</S.ToggleButton>
 				<S.StyledLink to="/tags">Tags</S.StyledLink>
 				{/* <S.StyledLink to="/blog">Posts</S.StyledLink> */}
 			</S.NavLinks>
