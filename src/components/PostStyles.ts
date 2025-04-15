@@ -49,17 +49,17 @@ export const PostContent = styled.div`
   color: #333;
 
   h1 {
-    font-size: 2rem;
+    font-size: 3rem;
     margin: 2rem 0 1rem;
   }
 
   h2 {
-    font-size: 1.7rem;
+    font-size: 2.5rem;
     margin: 1.8rem 0 1rem;
   }
 
   h3 {
-    font-size: 1.4rem;
+    font-size: 2rem;
     margin: 1.5rem 0 0.8rem;
   }
 
