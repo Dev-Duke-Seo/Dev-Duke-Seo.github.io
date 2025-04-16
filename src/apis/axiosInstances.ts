@@ -24,10 +24,7 @@ export const githubAPI: AxiosInstance = axios.create({
 export const githubRawAPI: AxiosInstance = axios.create({
 	baseURL: RAW_CONTENT,
 	timeout: 10000,
-	headers: {
-		// Raw 콘텐츠는 Content-Type과 Accept 헤더가 필요 없음
-		Authorization: `token ${GITHUB_TOKEN}`,
-	},
+	// 모든 헤더 제거 - raw 콘텐츠는 보통 인증 없이도 접근 가능
 });
 
 // 공통 에러 처리 인터셉터 추가
