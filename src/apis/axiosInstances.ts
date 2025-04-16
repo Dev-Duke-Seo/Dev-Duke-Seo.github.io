@@ -4,6 +4,7 @@ import { handleAPIErrors } from "./handleAPIErrors";
 // GitHub API URL
 const { API_BASE, RAW_CONTENT } = GitHubConfig;
 
+const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
 /**
  * GitHub API 요청을 위한 axios 인스턴스
  */
@@ -13,6 +14,7 @@ export const githubAPI: AxiosInstance = axios.create({
 	headers: {
 		"Content-Type": "application/json",
 		Accept: "application/vnd.github.v3+json",
+		Authorization: `${GITHUB_TOKEN}`,
 	},
 });
 
@@ -22,6 +24,11 @@ export const githubAPI: AxiosInstance = axios.create({
 export const githubRawAPI: AxiosInstance = axios.create({
 	baseURL: RAW_CONTENT,
 	timeout: 10000,
+	headers: {
+		"Content-Type": "application/json",
+		Accept: "application/vnd.github.v3+json",
+		Authorization: `${GITHUB_TOKEN}`,
+	},
 });
 
 // 공통 에러 처리 인터셉터 추가
