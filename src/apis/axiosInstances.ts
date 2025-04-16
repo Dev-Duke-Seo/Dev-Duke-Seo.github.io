@@ -14,7 +14,7 @@ export const githubAPI: AxiosInstance = axios.create({
 	headers: {
 		"Content-Type": "application/json",
 		Accept: "application/vnd.github.v3+json",
-		Authorization: `${GITHUB_TOKEN}`,
+		Authorization: `Bearer ${GITHUB_TOKEN}`,
 	},
 });
 
@@ -25,9 +25,8 @@ export const githubRawAPI: AxiosInstance = axios.create({
 	baseURL: RAW_CONTENT,
 	timeout: 10000,
 	headers: {
-		"Content-Type": "application/json",
-		Accept: "application/vnd.github.v3+json",
-		Authorization: `${GITHUB_TOKEN}`,
+		// Raw 콘텐츠는 Content-Type과 Accept 헤더가 필요 없음
+		Authorization: `Bearer ${GITHUB_TOKEN}`,
 	},
 });
 
