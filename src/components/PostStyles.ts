@@ -73,6 +73,12 @@ export const PostContent = styled.div`
     margin: 1.5rem 0;
   }
 
+  li {
+    color: gray;
+  }
+
+  
+
   code {
     background-color: ${({ theme }) => theme.colors.backgroundSub};
     padding: 0.2rem 0.4rem;
