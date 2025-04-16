@@ -14,7 +14,7 @@ export const githubAPI: AxiosInstance = axios.create({
 	headers: {
 		"Content-Type": "application/json",
 		Accept: "application/vnd.github.v3+json",
-		Authorization: `token ${GITHUB_TOKEN}`,
+		Authorization: `${GITHUB_TOKEN}`,
 	},
 });
 
