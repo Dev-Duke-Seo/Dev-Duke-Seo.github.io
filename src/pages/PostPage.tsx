@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Post from "../components/Post";
+import Comments from "../components/Comments";
 import useContentStore from "../stores/ContentStore";
 
 const PostPageContainer = styled.div`
@@ -17,7 +18,6 @@ export default function PostPage() {
 
 	const params = useParams();
 
-
 	const post = posts.find(
 		(post) => removeContentPath(post.path) === params["*"]
 	);
@@ -27,6 +27,10 @@ export default function PostPage() {
 			{post ? (
 				<>
 					<Post post={post} />
+					<Comments 
+						repo="dev-duke-seo/blog-comments"
+						issueTerm={post.path}
+					/>
 				</>
 			) : (
 				<div>포스트를 찾을 수 없습니다.</div>
