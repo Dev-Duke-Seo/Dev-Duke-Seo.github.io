@@ -1,8 +1,4 @@
-# 👋 안녕하세요! 개발자 Duke입니다
-
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fdev-duke-seo&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
-[![Gmail Badge](https://img.shields.io/badge/Gmail-d14836?style=flat-square&logo=Gmail&logoColor=white&link=mailto:duke.dev.seo@gmail.com)](mailto:duke.dev.seo@gmail.com)
-[![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/dev-duke-seo)
+<h1 style="text-align: center;   text-decoration: none !important; border-bottom: none !important;"> 👋 안녕하세요! 개발자 Duke입니다</h1>
 
 ## 🚀 About Me
 <div align="center">
@@ -13,7 +9,7 @@
 
 </div>
 
-## 🛠️ Tech Stack
+<h2 style="border-bottom: none !important;"> 🛠️ Tech Stack</h2>
 <div align="center">
 
 ### <h2 style="color:grey">Frontend</h2>
@@ -88,11 +84,16 @@
 
 ## 📊 GitHub Stats
 <div align="center">
+
+
 ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=dev-duke-seo&show_icons=true&theme=radical)
 </div>
 
 ## 📫 Contact
 <div align="center">
+
+
 [![Gmail Badge](https://img.shields.io/badge/Gmail-d14836?style=flat-square&logo=Gmail&logoColor=white&link=mailto:duke.dev.seo@gmail.com)](mailto:duke.dev.seo@gmail.com)
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/dev-duke-seo)
+
 </div>
