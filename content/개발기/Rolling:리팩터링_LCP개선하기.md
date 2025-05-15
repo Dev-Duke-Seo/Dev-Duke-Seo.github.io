@@ -20,7 +20,7 @@ tags:
 | **72b47c6** | 초기 카드 이미지 *preload* 구현 |
 | **5fd6e8c** | Card 컴포넌트 구조·스타일변경(Image 적용) |
 | **e96b13c** | `next.config.mjs` 이미지 설정(deviceSizes 등) 추가 |
----
+
 
 ## 1. 외부 이미지 도메인 사전 연결 (bb05921)
 
@@ -34,8 +34,9 @@ tags:
   <link rel="preconnect" href="https://picsum.photos" crossOrigin="" />
   <link rel="dns-prefetch" href="https://picsum.photos" />
 </head>
+```
 
-## 2. 2. 핵심 카드 이미지 Preload (72b47c6)
+## 2. 핵심 카드 이미지 Preload (72b47c6)
 
 App Router 서버 컴포넌트에서 첫 fetch 직후 상위 카드 이미지를 우선 로드하도록 구현했다.
 Card에 index prop을 추가하고, 인기 0–3·최근 0–1 카드에 <Image priority>를 적용했다.
