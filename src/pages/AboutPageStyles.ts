@@ -130,3 +130,62 @@ export const ContactLink = styled.a`
 		color: ${(props) => props.theme.colors.textLight};
 	}
 `;
+
+export const BadgeContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+	width: 100%;
+`;
+
+export const BadgeCategory = styled.h3`
+	font-size: 1.8rem;
+	color: ${(props) => props.theme.colors.textLight};
+	margin-bottom: 1rem;
+`;
+
+export const BadgeGroup = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.8rem;
+	
+	img {
+		height: 2.2rem;
+		transition: transform 0.2s;
+		
+		&:hover {
+			transform: translateY(-3px);
+		}
+	}
+`;
+
+export const TechStackContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	width: 100%;
+`;
+
+export const MainCategory = styled.h2`
+	font-size: 2.2rem;
+	font-weight: 700;
+	color: ${(props) => props.theme.colors.textLight};
+	margin-top: 2.5rem;
+	margin-bottom: 1rem;
+	padding-bottom: 0.5rem;
+	border-bottom: 1px solid ${(props) => props.theme.colors.border};
+`;
+
+export const SubCategory = styled.h3`
+	font-size: 1.6rem;
+	font-weight: 600;
+	color: ${(props) => props.theme.colors.textLight};
+	margin: 1rem 0 0.5rem ;
+	position: relative;	
+`;
+
+export const Quote = styled.h1`
+	font-size: 30px;
+	font-weight: bold;
+	color: ${(props) => props.theme.colors.text};
+`;
